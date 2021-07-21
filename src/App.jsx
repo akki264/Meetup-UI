@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import Register from "./Register";
-import Login from "./Login";
-import Users from "./Users";
-import Header from "./Header";
-import Footer from "./Footer";
-import Home from "./Home";
-import Edit from "./Edit";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Users from "./pages/Users";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
+import Home from "./pages/Home";
+import Edit from "./pages/Edit";
+import PrivateRoute from "./Components/PrivateRoute";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link, Redirect
 } from "react-router-dom";
 
 function App() {
@@ -34,26 +35,24 @@ function App() {
         <Router>
             <div>
                 <Header />
-                {/*  */}
+
                 <Footer />
 
-                {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+
                 <Switch>
                     <Route path="/login">
                         <Login />
                     </Route>
+
                     <Route path="/register">
                         <Register onSub={addNote} />
                     </Route>
-                    <Route path="/editprofile">
-                        <Edit />
-                    </Route>
-                    <Route path="/home">
-                        <Home />
+                    <PrivateRoute path="/edit" Component={Edit} />
+                    <PrivateRoute path="/home" Component={Home} />
+                    <PrivateRoute path="/users" Component={Users} />
 
 
-                    </Route>
+
                     <Route path="/users">
                         {contacts.map((newNote, index) => {
                             return (
@@ -72,7 +71,7 @@ function App() {
                     </Route>
                 </Switch>
             </div>
-        </Router>
+        </Router >
     );
 }
 
