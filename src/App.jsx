@@ -50,7 +50,7 @@ function App() {
                     <PrivateRoute path="/edit" Component={Edit} />
                     <PrivateRoute path="/home" Component={Home} />
                     <PrivateRoute path="/users" Component={Users} />
-
+                    <PrivateRoute path="/logout" component={Logout} />
 
 
                     <Route path="/users">

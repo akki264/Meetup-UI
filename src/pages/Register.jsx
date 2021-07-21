@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 
 function Register(props) {
@@ -10,7 +11,8 @@ function Register(props) {
         email: "",
         password: ""
     });
-
+    const dispatch = useDispatch();
+    const history = useHistory();
     function handleChange(event) {
         const { name, value } = event.target;
 
@@ -23,12 +25,28 @@ function Register(props) {
     }
     function submitForm(event) {
         props.onSub(contact);
-        setContact({
-            fName: "",
-            lName: "",
-            email: "",
-            password: ""
-        });
+
+        fetch(URL + 'register', {
+            method: "POST",
+            body: JSON.stringify({
+                email: contact.email,
+                password: contact.password,
+                first_name: contact.fName,
+                last_name: contact.lName
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            }
+
+        }).then(res => res.json())
+            .then((res) => {
+                console.log(res);
+                dispatch(login(res))
+                history.push('/login');
+            })
+
+
+
         event.preventDefault();
     }
 

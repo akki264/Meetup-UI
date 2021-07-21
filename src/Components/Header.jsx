@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { isLogin } from '../utils/index';
 
 function Header() {
     return (
@@ -7,15 +8,15 @@ function Header() {
             <h1>MeetUp</h1>
             <nav >
                 <ul style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', color: 'white', listStyle: 'none' }}>
-                    <li style={{ padding: '10px', textDecoration: 'none' }}>
+                    {isLogin() === true && <li style={{ padding: '10px', textDecoration: 'none' }}>
                         <Link to="/home">Home</Link>
-                    </li>
-                    <li style={{ padding: '10px', textDecoration: 'none' }}>
+                    </li>}
+                    {isLogin() === false && <li style={{ padding: '10px', textDecoration: 'none' }}>
                         <Link to="/login">Login</Link>
-                    </li>
-                    <li style={{ padding: '10px', textDecoration: 'none' }}>
+                    </li>}
+                    {isLogin() === false && <li style={{ padding: '10px', textDecoration: 'none' }}>
                         <Link to="/register">Register</Link>
-                    </li>
+                    </li>}
                 </ul>
             </nav>
         </header>

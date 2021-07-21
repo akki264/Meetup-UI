@@ -1,28 +1,48 @@
 
 import React, { useState } from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { login } from "../actions/authAction";
+import { useHistory } from "react-router-dom";
 
 
 function Login() {
 
-    const [contact, setContact] = useState({
+    const [credentials, setCredentials] = useState({
         uName: "",
         password: ""
     });
-
+    const dispatch = useDispatch();
+    const history = useHistory();
     function handleChange(event) {
         const { name, value } = event.target;
 
-        setContact(prevValue => {
+        setCredentials(prevValue => {
             return {
                 ...prevValue,
                 [name]: value
             };
         });
     }
-    function submitForm() {
+    function submitForm(event) {
 
-        console.log(contact);
+        fetch(URL + 'login', {
+            method: "POST",
+            body: JSON.stringify({
+                email: credentials.uName,
+                password: credentials.password
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then(res => res.json())
+            .then((res) => {
+                console.log(res);
+                if (res && res.token) {
+                    dispatch(login(res))
+                    history.push('/home');
+                }
+            })
+        event.preventDefault();
     }
 
     return (
@@ -37,25 +57,18 @@ function Login() {
                     onChange={handleChange}
                     type="text"
                     name="uName"
-                    value={contact.uName}
+                    value={credentials.uName}
                     placeholder="User Name"
                 />
-                {/* <input
-                    onChange={handleChange}
-                    name="lName"
-                    value={contact.lName}
-                    placeholder="Last Name"
-                /> */}
+
                 <input
                     onChange={handleChange}
                     type="password"
                     name="password"
-                    value={contact.password}
+                    value={credentials.password}
                     placeholder="Password"
                 />
-                {/* <div>
-                    <p>"" </p>
-                </div> */}
+
                 <button type="submit">Login</button>
                 <div>
                     <p> ""</p>
