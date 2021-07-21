@@ -47,9 +47,9 @@ function App() {
                     <Route path="/register">
                         <Register onSub={addNote} />
                     </Route>
-                    <PrivateRoute path="/edit" Component={Edit} />
-                    <PrivateRoute path="/home" Component={Home} />
-                    <PrivateRoute path="/users" Component={Users} />
+                    <PrivateRoute path="/edit" component={Edit} />
+                    <PrivateRoute path="/home" component={Home} />
+                    <PrivateRoute path="/users" component={Users} />
                     <PrivateRoute path="/logout" component={Logout} />
 
 

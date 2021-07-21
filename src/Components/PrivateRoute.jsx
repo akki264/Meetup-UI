@@ -1,6 +1,6 @@
 import React from 'react';
-import { Component } from 'react';
-import { Router, Redirect, Route } from 'react-router-dom';
+
+import { Redirect, Route } from 'react-router-dom';
 import { isLogin } from '../utils';
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
