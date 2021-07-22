@@ -1,25 +1,38 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { isLogin } from '../utils/index';
+import { logout } from "../actions/authAction";
 
 function Header() {
+    const auth = useSelector((state) => state.authReducer)
+    const dispatch = useDispatch();
+
     return (
         <header>
             <h1>MeetUp</h1>
             <nav >
                 <ul style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', color: 'white', listStyle: 'none' }}>
-                    {isLogin() === true && <li style={{ padding: '10px', textDecoration: 'none' }}>
+                    {auth.isLogin === true && <li style={{ padding: '10px', textDecoration: 'none' }}>
                         <Link to="/home">Home</Link>
                     </li>}
-                    {isLogin() === false && <li style={{ padding: '10px', textDecoration: 'none' }}>
+                    {auth.isLogin === false && <li style={{ padding: '10px', textDecoration: 'none' }}>
                         <Link to="/login">Login</Link>
                     </li>}
-                    {isLogin() === false && <li style={{ padding: '10px', textDecoration: 'none' }}>
+                    {auth.isLogin === false && <li style={{ padding: '10px', textDecoration: 'none' }}>
                         <Link to="/register">Register</Link>
+                    </li>}
+
+                    {auth.isLogin === true && <li style={{ padding: '10px', textDecoration: 'none' }}>
+                        <Link to="/" onClick={() => {
+                            dispatch(logout())
+                        }}
+
+                        >Register</Link>
                     </li>}
                 </ul>
             </nav>
-        </header>
+        </header >
     );
 }
 

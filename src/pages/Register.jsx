@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import { URL } from './../config/constants';
 
 
@@ -12,7 +12,7 @@ function Register(props) {
         email: "",
         password: ""
     });
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const history = useHistory();
     function handleChange(event) {
         const { name, value } = event.target;
@@ -25,7 +25,7 @@ function Register(props) {
         });
     }
     function submitForm(event) {
-        props.onSub(contact);
+
 
         fetch(URL + 'register', {
             method: "POST",
@@ -42,8 +42,8 @@ function Register(props) {
         }).then(res => res.json())
             .then((res) => {
                 console.log(res);
-                dispatch(login(res))
-                history.push('/login');
+
+                history.push('/');
             })
 
 

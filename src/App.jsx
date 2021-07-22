@@ -15,19 +15,14 @@ import {
 } from "react-router-dom";
 
 function App() {
-    const [contacts, setContacts] = useState([]);
-    function addNote(contact) {
-        setContacts((prevNotes) => {
-            return [...prevNotes, contact];
-        });
-    }
-    function letsDelete(id) {
-        setContacts((prevNotes) => {
-            return prevNotes.filter((newItem, index) => {
-                return index !== id;
-            });
-        });
-    }
+
+    // function letsDelete(id) {
+    //     setContacts((prevNotes) => {
+    //         return prevNotes.filter((newItem, index) => {
+    //             return index !== id;
+    //         });
+    //     });
+    // }
 
 
     return (
@@ -36,40 +31,34 @@ function App() {
             <div>
                 <Header />
 
-                <Footer />
+
 
 
                 <Switch>
-                    <Route path="/login">
+                    <Route path="/" exact>
                         <Login />
                     </Route>
 
                     <Route path="/register">
-                        <Register onSub={addNote} />
+                        <Register />
                     </Route>
                     <PrivateRoute path="/edit" component={Edit} />
                     <PrivateRoute path="/home" component={Home} />
                     <PrivateRoute path="/users" component={Users} />
-                    <PrivateRoute path="/logout" component={Logout} />
+                    {/* <PrivateRoute path="/logout" component={Logout} /> */}
 
 
                     <Route path="/users">
-                        {contacts.map((newNote, index) => {
-                            return (
-                                <Users
-                                    key={index}
-                                    id={index}
-                                    onDelete={letsDelete}
-                                    fname={newNote.fName}
-                                    lname={newNote.lName}
-                                    email={newNote.email}
-                                    password={newNote.password}
-                                />
 
-                            );
-                        })}
+
+                        <Users />
                     </Route>
+
+
+
+
                 </Switch>
+                {/* <Footer /> */}
             </div>
         </Router >
     );
