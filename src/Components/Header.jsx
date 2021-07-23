@@ -14,21 +14,38 @@ function Header() {
             <nav >
                 <ul style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', color: 'white', listStyle: 'none' }}>
                     {auth.isLogin === true && <li style={{ padding: '10px', textDecoration: 'none' }}>
-                        <Link to="/home">Home</Link>
+                        <Link to="/home" style={{
+                            textDecoration: 'none',
+                            color: 'white',
+                            fontSize: 'larger'
+                        }}>Home</Link>
                     </li>}
-                    {auth.isLogin === false && <li style={{ padding: '10px', textDecoration: 'none' }}>
+                    {/* {auth.isLogin === false && <li style={{ padding: '10px', textDecoration: 'none' }}>
                         <Link to="/login">Login</Link>
-                    </li>}
-                    {auth.isLogin === false && <li style={{ padding: '10px', textDecoration: 'none' }}>
+                    </li>} */}
+                    {/* {auth.isLogin === false && <li style={{ padding: '10px', textDecoration: 'none' }}>
                         <Link to="/register">Register</Link>
-                    </li>}
+                    </li>} */}
 
                     {auth.isLogin === true && <li style={{ padding: '10px', textDecoration: 'none' }}>
                         <Link to="/" onClick={() => {
                             dispatch(logout())
+                        }} style={{
+                            textDecoration: 'none',
+                            color: 'white',
+                            fontSize: 'larger'
                         }}
 
-                        >Register</Link>
+                        >Logout</Link>
+                    </li>}
+                    {auth.isLogin === true && <li style={{ padding: '10px', textDecoration: 'none' }}>
+                        <Link to="/schedules" style={{
+                            textDecoration: 'none',
+                            color: 'white',
+                            fontSize: 'larger'
+                        }}
+
+                        >Schedules</Link>
                     </li>}
                 </ul>
             </nav>

@@ -74,7 +74,12 @@ function Login() {
                 <div>
                     <p> ""</p>
                 </div>
-                <Link to="/register" >Register</Link>
+
+                <Link to="/register" style={{
+                    textDecoration: 'none',
+                    color: '#13a2f5',
+                    fontSize: 'larger'
+                }}>Register</Link>
             </form>
         </div >
     );

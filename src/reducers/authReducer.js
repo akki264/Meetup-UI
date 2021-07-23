@@ -1,8 +1,8 @@
-import { isLogin, setLogout, setLogin } from "../utils/index"
+import { isLogin, setLogout, setLogin, getCurrentUser } from "../utils/index"
 
 const initialState = {
     isLogin: isLogin() ? true : false,
-    user: []
+    user: getCurrentUser(),
 
 }
 

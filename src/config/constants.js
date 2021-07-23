@@ -1,1 +1,1 @@
-export const URL = "http://localhost/meetup/public/api/"
+export const URL = "http://localhost/meetUp/public/api/"

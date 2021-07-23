@@ -9,7 +9,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import IconButton from '@material-ui/core/IconButton';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import ScheduleIcon from '@material-ui/icons/Schedule';
-import DeleteIcon from '@material-ui/icons/Schedule';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 
@@ -35,22 +35,32 @@ export default function ContactCard(props) {
                     </Avatar>
                 }
                 action={
-                    <IconButton aria-label="settings">
+
+                    props.unFriendBtn && <IconButton onClick={props.unFriend} aria-label="settings">
                         <DeleteIcon />
                     </IconButton>
+
                 }
                 title={props.name}
                 subheader={props.email}
+                style={{
+                    textDecoration: 'none',
+                    color: 'cornflowerblue',
+                    fontSize: 'larger'
+                }}
 
 
             />
             <CardActions disableSpacing>
-                <IconButton aria-label="add to friends">
-                    <GroupAddIcon />
-                </IconButton>
-                {/* <IconButton aria-label="call schedule">
+                {props.showConnectBtn && <IconButton onClick={props.connectUser} aria-label="add to friends">
+                    <GroupAddIcon o />
+                </IconButton>}
+                {props.showScheduleBtn && <IconButton onClick={() => {
+                    props.scheduleCall()
+                    console.log('test')
+                }} aria-label="call schedule">
                     <ScheduleIcon />
-                </IconButton> */}
+                </IconButton>}
 
 
             </CardActions>

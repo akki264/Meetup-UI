@@ -6,6 +6,7 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Home from "./pages/Home";
 import Edit from "./pages/Edit";
+import Schedules from "./pages/Schedules";
 import PrivateRoute from "./Components/PrivateRoute";
 import {
     BrowserRouter as Router,
@@ -45,6 +46,7 @@ function App() {
                     <PrivateRoute path="/edit" component={Edit} />
                     <PrivateRoute path="/home" component={Home} />
                     <PrivateRoute path="/users" component={Users} />
+                    <PrivateRoute path="/schedules" component={Schedules} />
                     {/* <PrivateRoute path="/logout" component={Logout} /> */}
 
 

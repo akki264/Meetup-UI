@@ -1,3 +1,5 @@
+import { LocalSeeOutlined } from "@material-ui/icons";
+
 const isLogin = () => {
     if (localStorage.getItem('isLogin') == "true") {
         return true;
@@ -17,7 +19,14 @@ const setLogout = () => {
     localStorage.setItem('token', '');
     return localStorage.setItem('isLogin', false)
 }
-
+const getCurrentUser = () => {
+    try {
+        const currentUser = localStorage.getItem('user');
+        return JSON.parse(currentUser);
+    } catch {
+        return {};
+    }
+}
 const getToken = () => {
 
     return localStorage.getItem('token')
@@ -27,5 +36,6 @@ export {
     setLogin,
     setLogout,
     isLogin,
-    getToken
+    getToken,
+    getCurrentUser
 }

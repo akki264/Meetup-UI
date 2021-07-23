@@ -87,6 +87,14 @@ function Register(props) {
                     placeholder="Password"
                 />
                 <button type="submit">Submit</button>
+                <div>
+                    <p> ""</p>
+                </div>
+                <Link to="/" style={{
+                    textDecoration: 'none',
+                    color: '#13a2f5',
+                    fontSize: 'larger'
+                }} >Login</Link>
             </form>
         </div >
     );
