@@ -7,6 +7,8 @@ import { URL } from './../config/constants';
 import ContactCard from "../Components/ContactCard";
 import ScheduleDialogue from "../Components/ScheduleDialogue";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../actions/userAction";
 
 
 function Users(props) {
@@ -16,29 +18,35 @@ function Users(props) {
     const [scheduleFriendId, setScheduleFriendId] = useState(null);
     const history = useHistory();
 
+    const dispatch = useDispatch();
+    const storeUser = useSelector((state) => {
+        console.log(state);
+        return state.userReducer
 
+    });
     useEffect(() => {
         getUsers()
     }, [])
 
 
+
     function getUsers() {
-        fetch(URL + 'users', {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + getToken()
-            }
+        // fetch(URL + 'users', {
+        //     method: "GET",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Authorization": "Bearer " + getToken()
+        //     }
 
-        }).then(res => res.json())
-            .then((res) => {
+        // }).then(res => res.json())
+        //     .then((res) => {
 
-                if (res && res.users) {
-                    setUsers(res.users);
-                    setFriends(res.friends);
-                }
-            })
-
+        //         if (res && res.users) {
+        //             setUsers(res.users);
+        //             setFriends(res.friends);
+        //         }
+        //     })
+        dispatch(getUser());
 
 
     }
@@ -89,7 +97,7 @@ function Users(props) {
                 Friends
             </Typography>
             <Grid container spacing={4} >
-                {friends.map((item) => {
+                {storeUser.friends.map((item) => {
                     return <Grid item xs={12} md={3} >
                         <ContactCard name={item.first_name + " " + item.last_name}
                             user={item}
@@ -110,7 +118,7 @@ function Users(props) {
                 Users
             </Typography>
             <Grid container spacing={4} >
-                {users.map((item) => {
+                {storeUser.users.map((item) => {
                     return <Grid item xs={12} md={3} >
                         <ContactCard name={item.first_name + " " + item.last_name} user={item} unFriendBtn={false} showConnectBtn={true}
                             connectUser={() => {
