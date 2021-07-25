@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom';
+import { editProfile } from "../actions/authAction";
+import { URL } from '../config/constants';
+import { getToken } from '../utils/index';
 
 function Edit() {
 
@@ -10,6 +14,8 @@ function Edit() {
 
         }
     );
+    const history = useHistory();
+    const dispatch = useDispatch();
 
     function handleChange(event) {
         // console.log(event.target.value);
@@ -24,8 +30,27 @@ function Edit() {
 
     }
 
-    function updateInfo() {
+    function updateInfo(event) {
 
+        fetch(URL + 'editProfile', {
+            method: "PUT",
+            body: JSON.stringify({
+                first_name: n.fname,
+                last_name: n.lname
+
+            }),
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer" + getToken() }
+
+
+        }).then(res => res.json())
+            .then(res => {
+
+                dispatch(editProfile(res.user));
+                history.push('/home');
+            })
+
+
+        event.preventDefault();
 
 
     }

@@ -27,6 +27,14 @@ const getCurrentUser = () => {
         return {};
     }
 }
+const updateUser = (user) => {
+
+    localStorage.setItem('user', JSON.stringify(user));
+
+
+
+
+}
 const getToken = () => {
 
     return localStorage.getItem('token')
@@ -37,5 +45,6 @@ export {
     setLogout,
     isLogin,
     getToken,
-    getCurrentUser
+    getCurrentUser,
+    updateUser
 }

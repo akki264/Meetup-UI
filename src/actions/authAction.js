@@ -15,10 +15,20 @@ const logout = () => {
     }
 }
 
+const editProfile = (payload) => {
+
+    return {
+        type: 'auth/editProfile',
+        payload
+    }
+
+}
+
 export {
 
     login,
-    logout
+    logout,
+    editProfile
 }
 
 

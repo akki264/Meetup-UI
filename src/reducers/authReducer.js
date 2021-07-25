@@ -1,4 +1,4 @@
-import { isLogin, setLogout, setLogin, getCurrentUser } from "../utils/index"
+import { isLogin, setLogout, setLogin, getCurrentUser, updateUser } from "../utils/index"
 
 const initialState = {
     isLogin: isLogin() ? true : false,
@@ -26,7 +26,24 @@ export default function authReducer(state = initialState, action) {
                 user: []
             }
         }
+        case 'auth/editProfile': {
+            updateUser(action.payload);
+            return {
+                ...state,
+                user: action.payload
+            }
+        }
         default: return state
 
     }
 }
+
+
+
+
+
+
+
+
+
+
