@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { URL } from './../config/constants';
+import { TextField } from "@material-ui/core";
 
 
 function Register(props) {
@@ -12,6 +13,7 @@ function Register(props) {
         email: "",
         password: ""
     });
+    const [formSubmit, setFormSubmit] = useState(false);
     // const dispatch = useDispatch();
     const history = useHistory();
     function handleChange(event) {
@@ -26,7 +28,7 @@ function Register(props) {
     }
     function submitForm(event) {
 
-
+        setFormSubmit(true);
         fetch(URL + 'register', {
             method: "POST",
             body: JSON.stringify({
@@ -58,34 +60,60 @@ function Register(props) {
             </h1>
 
             <form onSubmit={submitForm}>
-                <input
+                <div>
+                    <TextField
+                        onChange={handleChange}
+                        type="text"
+                        name="fName"
+                        variant="outlined"
+                        label="First Name"
+                        value={contact.fName}
+                        style={{ width: 300 }}
+                        margin="normal"
+                        error={formSubmit && contact.fName === '' ? true : false}
+                        helperText={formSubmit && contact.fName === '' ? "First name is requied" : ''}
+                    />
+                </div>
+
+                <div><TextField
                     onChange={handleChange}
                     type="text"
-                    name="fName"
-                    value={contact.fName}
-                    placeholder="First Name"
-                />
-                <input
-                    onChange={handleChange}
                     name="lName"
-                    type="text"
+                    variant="outlined"
+                    label="Last Name"
                     value={contact.lName}
-                    placeholder="Last Name"
-                />
-                <input
+                    style={{ width: 300 }}
+                    margin="normal"
+                    error={formSubmit && contact.lName === '' ? true : false}
+                    helperText={formSubmit && contact.lName === '' ? "Last name is requied" : ''}
+                /></div>
+
+                <div><TextField
                     onChange={handleChange}
-                    name="email"
                     type="text"
+                    name="email"
+                    variant="outlined"
+                    label="Email"
                     value={contact.email}
-                    placeholder="Email"
-                />
-                <input
+                    style={{ width: 300 }}
+                    margin="normal"
+                    error={formSubmit && contact.email === '' ? true : false}
+                    helperText={formSubmit && contact.email === '' ? "Email is requied" : ''}
+                /></div>
+
+                <div><TextField
                     onChange={handleChange}
-                    name="password"
                     type="password"
+                    name="password"
+                    variant="outlined"
+                    label="Password"
                     value={contact.password}
-                    placeholder="Password"
-                />
+                    style={{ width: 300 }}
+                    margin="normal"
+                    error={formSubmit && contact.password === '' ? true : false}
+                    helperText={formSubmit && contact.password === '' ? "Password is requied" : ''}
+                /></div>
+
                 <button type="submit">Submit</button>
                 <div>
                     <p> ""</p>

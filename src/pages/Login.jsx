@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../actions/authAction";
 import { URL } from './../config/constants';
 import { Link, useHistory } from "react-router-dom";
+import TextField from '@material-ui/core/TextField';
 
 
 function Login() {
@@ -13,6 +14,7 @@ function Login() {
         password: ""
     });
     const dispatch = useDispatch();
+    const [formSubmit, setFormSubmit] = useState(false);
     const history = useHistory();
     function handleChange(event) {
         const { name, value } = event.target;
@@ -25,6 +27,7 @@ function Login() {
         });
     }
     function submitForm(event) {
+        setFormSubmit(true);
 
         fetch(URL + 'login', {
             method: "POST",
@@ -52,35 +55,52 @@ function Login() {
             <h1>
                 Login
             </h1>
+            <div >
+                <form onSubmit={submitForm}>
+                    <div>
+                        <TextField
+                            onChange={handleChange}
+                            type="text"
+                            name="uName"
+                            variant="outlined"
+                            label="User Name"
+                            value={credentials.uName}
+                            style={{ width: 300 }}
+                            margin="normal"
+                            error={formSubmit && credentials.uName === '' ? true : false}
+                            helperText={formSubmit && credentials.uName === '' ? "Username is requied" : ''}
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                            onChange={handleChange}
+                            type="password"
+                            name="password"
+                            variant="outlined"
+                            label="Password"
+                            style={{ width: 300 }}
+                            value={credentials.password}
 
-            <form onSubmit={submitForm}>
-                <input
-                    onChange={handleChange}
-                    type="text"
-                    name="uName"
-                    value={credentials.uName}
-                    placeholder="User Name"
-                />
+                            margin="normal"
+                            error={formSubmit && credentials.password === '' ? true : false}
+                            helperText={formSubmit && credentials.password === '' ? "Password is required" : ''}
+                        /></div>
 
-                <input
-                    onChange={handleChange}
-                    type="password"
-                    name="password"
-                    value={credentials.password}
-                    placeholder="Password"
-                />
 
-                <button type="submit">Login</button>
-                <div>
-                    <p> ""</p>
-                </div>
 
-                <Link to="/register" style={{
-                    textDecoration: 'none',
-                    color: '#13a2f5',
-                    fontSize: 'larger'
-                }}>Register</Link>
-            </form>
+
+                    <button type="submit">Login</button>
+                    <div>
+                        <Link to="/register" style={{
+                            textDecoration: 'none',
+                            color: '#13a2f5',
+                            fontSize: 'larger'
+                        }}>Register</Link>
+                    </div>
+
+
+                </form>
+            </div>
         </div >
     );
 
