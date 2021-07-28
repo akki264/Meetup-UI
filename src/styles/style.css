@@ -16,21 +16,24 @@ body {
 
 header {
   background-color: #13a2f5;
-  margin: auto -16px;
+  margin-bottom: auto;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   top: 0;
   width: 100%;
   text-align: center;
+
 }
 
 footer {
-  position: absolute;
+  margin-top: auto;
   text-align: center;
   bottom: 0;
   width: 100%;
   height: 2.5rem;
   background-color: #13a2f5;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  position: fixed;
 }
 
 footer p {
@@ -39,9 +42,11 @@ footer p {
 }
 
 .container {
-  margin: 10% auto;
+  margin: 5% auto;
   padding: 80px 0;
   text-align: center;
+  min-height: 100vh;
+  padding-bottom: 2.5rem;
 
 }
 
