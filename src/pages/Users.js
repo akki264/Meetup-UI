@@ -9,7 +9,7 @@ import ScheduleDialogue from "../Components/ScheduleDialogue";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../actions/userAction";
-
+import moment from 'moment';
 
 function Users(props) {
     const [users, setUsers] = useState([]);
@@ -81,7 +81,7 @@ function Users(props) {
             body: JSON.stringify({
                 "friend_id": scheduleFriendId,
                 "title": scheduleData.title,
-                "meeting_time": scheduleData.meetingTime,
+                "meeting_time": moment(scheduleData.meetingTime).utc(0).format('yyyy-MM-DDThh:mm:ss'),
 
                 "description": scheduleData.description
             })

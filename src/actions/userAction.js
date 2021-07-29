@@ -29,4 +29,5 @@ const getUser = () => {
     }
 }
 
+
 export { getUser }

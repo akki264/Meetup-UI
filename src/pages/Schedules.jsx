@@ -13,8 +13,9 @@ import Paper from '@material-ui/core/Paper';
 import { useState } from "react";
 import { useEffect } from "react";
 import { URL } from './../config/constants';
-import { getToken } from "./../utils";
+import { getToken, getTimezone } from "./../utils";
 import ScheduleDialogue from "../Components/ScheduleDialogue";
+import moment from "moment-timezone";
 
 const useStyles = makeStyles({
     root: {
@@ -32,7 +33,7 @@ function Schedules() {
     const [rows, setRows] = useState([])
     const [openSchedule, setOpenSchedule] = useState(false)
     const [scheduleEditData, setSechduleEditData] = useState({})
-
+    const currentTimezone = getTimezone();
 
     const onDelete = () => {
         fetch(URL + 'deleteschedule/' + scheduleEditData.id, {
@@ -105,12 +106,13 @@ function Schedules() {
                                 <TableRow key={row.name}>
                                     <TableCell >{auth.user.id == row.friend_id ? `${row.user_data[0].first_name} ${row.user_data[0].last_name}` : `${row.friend_user[0].first_name} ${row.friend_user[0].last_name}`}</TableCell>
                                     <TableCell >{row.title}</TableCell>
-                                    <TableCell >{row.meeting_time}</TableCell>
+                                    <TableCell >{moment(row.meeting_time).tz(currentTimezone).format('yyyy-MM-DDThh:mm:ss')}</TableCell>
                                     <TableCell ><Button variant="contained" color="primary"
                                         onClick={() => {
                                             setOpenSchedule(true)
                                             setSechduleEditData(row)
                                         }}
+
                                     >
                                         Edit
                                     </Button>

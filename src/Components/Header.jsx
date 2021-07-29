@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { isLogin } from '../utils/index';
 import { logout } from "../actions/authAction";
+import TimeZoneDialogue from "./TimeZoneDialogue";
+import { timezoneAction } from "../actions/timezoneAction";
 
 function Header() {
+
     const auth = useSelector((state) => state.authReducer)
     const dispatch = useDispatch();
+    const [open, setOpen] = useState(false);
+
+    function dialogClose() {
+        setOpen(false);
+    }
+
+    function onSaveTimezone(tz) {
+
+        dispatch(timezoneAction(tz));
+
+
+    }
 
     return (
         <header>
@@ -47,9 +62,30 @@ function Header() {
 
                         >Schedules</Link>
                     </li>}
+                    {auth.isLogin === true && <li style={{ padding: '10px', textDecoration: 'none' }}>
+                        <Link onClick={() => {
+                            setOpen(true);
+                        }} style={{
+                            textDecoration: 'none',
+                            color: 'white',
+                            fontSize: 'larger'
+                        }}
+
+                        >Timezone</Link>
+                    </li>}
                 </ul>
             </nav>
+            <TimeZoneDialogue
+                openDialog={open}
+                closeDialog={dialogClose}
+                saveDialog={(timezonePassed) => {
+                    onSaveTimezone(timezonePassed)
+                    setOpen(false)
+
+                }} />
         </header >
+
+
     );
 }
 

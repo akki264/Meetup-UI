@@ -7,7 +7,8 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from "@material-ui/core/styles"
-import moment from 'moment';
+import moment from "moment-timezone";
+import { getToken, getTimezone } from "./../utils";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -43,6 +44,7 @@ export default function ScheduleDialogue(props) {
     const classes = useStyles();
 
     const [scheduleForm, setScheduleForm] = useState({});
+    const currentTimezone = getTimezone();
 
     const onValueChange = (event) => {
         const { name, value } = event.target;
@@ -55,7 +57,7 @@ export default function ScheduleDialogue(props) {
         console.log(props.editData)
         if (props.isEdit) {
             setScheduleForm({
-                meetingTime: props.editData.meeting_time ? moment(props.editData.meeting_time).format('yyyy-MM-DDThh:mm:ss') : '',
+                meetingTime: props.editData.meeting_time ? moment(props.editData.meeting_time).tz(currentTimezone).format('yyyy-MM-DDThh:mm:ss') : '',
                 title: props.editData.title,
                 description: props.editData.description,
             })

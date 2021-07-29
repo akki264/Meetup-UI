@@ -35,6 +35,13 @@ const updateUser = (user) => {
 
 
 }
+const getTimezone = () => {
+
+    return localStorage.getItem('timezone')
+}
+const updateTimezone = (tz) => {
+    localStorage.setItem('timezone', tz);
+}
 const getToken = () => {
 
     return localStorage.getItem('token')
@@ -46,5 +53,7 @@ export {
     isLogin,
     getToken,
     getCurrentUser,
-    updateUser
+    updateUser,
+    updateTimezone,
+    getTimezone
 }
