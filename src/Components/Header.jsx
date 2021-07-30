@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
-import { isLogin } from '../utils/index';
+import { isLogin, getToken } from '../utils/index';
 import { logout } from "../actions/authAction";
 import TimeZoneDialogue from "./TimeZoneDialogue";
 import { timezoneAction } from "../actions/timezoneAction";
+import { URL } from "../config/constants";
 
 function Header() {
 
@@ -17,8 +18,29 @@ function Header() {
     }
 
     function onSaveTimezone(tz) {
+        console.log(tz);
 
-        dispatch(timezoneAction(tz));
+        fetch(URL + 'updatetimezone', {
+            method: "PUT",
+            body: JSON.stringify({
+                usertimezone: tz.timezone,
+
+
+            }),
+            headers: { "Content-Type": "application/json", "Authorization": "Bearer" + getToken() }
+
+
+        }).then(res => res.json())
+            .then(res => {
+                dispatch(timezoneAction(res.timezone));
+
+            })
+
+
+
+
+
+
 
 
     }
@@ -42,17 +64,7 @@ function Header() {
                         <Link to="/register">Register</Link>
                     </li>} */}
 
-                    {auth.isLogin === true && <li style={{ padding: '10px', textDecoration: 'none' }}>
-                        <Link to="/" onClick={() => {
-                            dispatch(logout())
-                        }} style={{
-                            textDecoration: 'none',
-                            color: 'white',
-                            fontSize: 'larger'
-                        }}
 
-                        >Logout</Link>
-                    </li>}
                     {auth.isLogin === true && <li style={{ padding: '10px', textDecoration: 'none' }}>
                         <Link to="/schedules" style={{
                             textDecoration: 'none',
@@ -72,6 +84,17 @@ function Header() {
                         }}
 
                         >Timezone</Link>
+                    </li>}
+                    {auth.isLogin === true && <li style={{ padding: '10px', textDecoration: 'none' }}>
+                        <Link to="/" onClick={() => {
+                            dispatch(logout())
+                        }} style={{
+                            textDecoration: 'none',
+                            color: 'white',
+                            fontSize: 'larger'
+                        }}
+
+                        >Logout</Link>
                     </li>}
                 </ul>
             </nav>

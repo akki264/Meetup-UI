@@ -75,7 +75,8 @@ function TimeZoneDialogue(props) {
                                 <InputLabel htmlFor="demo-dialog-native">Timezones</InputLabel>
                                 <Select
                                     native
-                                    value="timezone"
+                                    name="timezone"
+                                    value={timezone.timezone}
                                     onChange={handleChange}
                                     input={<Input id="demo-dialog-native" />}
                                 >
@@ -96,10 +97,10 @@ function TimeZoneDialogue(props) {
                     <Button onClick={() => {
                         props.saveDialog(timezone)
                     }} color="primary">
-                        Cancel
+                        Ok
                     </Button>
                     <Button onClick={props.closeDialog} color="primary">
-                        Ok
+                        Cancel
                     </Button>
                 </DialogActions>
 

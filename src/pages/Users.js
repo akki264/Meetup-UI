@@ -12,8 +12,7 @@ import { getUser } from "../actions/userAction";
 import moment from 'moment';
 
 function Users(props) {
-    const [users, setUsers] = useState([]);
-    const [friends, setFriends] = useState([]);
+
     const [openSchedule, setOpenSchedule] = useState(false);
     const [scheduleFriendId, setScheduleFriendId] = useState(null);
     const history = useHistory();
@@ -81,7 +80,7 @@ function Users(props) {
             body: JSON.stringify({
                 "friend_id": scheduleFriendId,
                 "title": scheduleData.title,
-                "meeting_time": moment(scheduleData.meetingTime).utc(0).format('yyyy-MM-DDThh:mm:ss'),
+                "meeting_time": moment(scheduleData.meetingTime).format('yyyy-MM-DD hh:mm:ss'),
 
                 "description": scheduleData.description
             })

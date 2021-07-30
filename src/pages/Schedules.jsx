@@ -15,7 +15,8 @@ import { useEffect } from "react";
 import { URL } from './../config/constants';
 import { getToken, getTimezone } from "./../utils";
 import ScheduleDialogue from "../Components/ScheduleDialogue";
-import moment from "moment-timezone";
+import moment from "moment";
+
 
 const useStyles = makeStyles({
     root: {
@@ -64,6 +65,8 @@ function Schedules() {
             }
         }).then(res => res.json())
             .then((response) => {
+
+
                 setRows(response.schedules)
             })
     }
@@ -98,7 +101,9 @@ function Schedules() {
                                 <TableCell className={classes.boldName} > Friend Name </TableCell>
                                 <TableCell className={classes.boldName} > Title </TableCell>
                                 <TableCell className={classes.boldName} > Time </TableCell>
+                                <TableCell className={classes.boldName} > Status </TableCell>
                                 <TableCell className={classes.boldName} > Actions </TableCell>
+
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -106,16 +111,20 @@ function Schedules() {
                                 <TableRow key={row.name}>
                                     <TableCell >{auth.user.id == row.friend_id ? `${row.user_data[0].first_name} ${row.user_data[0].last_name}` : `${row.friend_user[0].first_name} ${row.friend_user[0].last_name}`}</TableCell>
                                     <TableCell >{row.title}</TableCell>
-                                    <TableCell >{moment(row.meeting_time).tz(currentTimezone).format('yyyy-MM-DDThh:mm:ss')}</TableCell>
-                                    <TableCell ><Button variant="contained" color="primary"
-                                        onClick={() => {
-                                            setOpenSchedule(true)
-                                            setSechduleEditData(row)
-                                        }}
+                                    <TableCell >{row.meeting_time_as_timezone}</TableCell>
+                                    <TableCell>{row.message}</TableCell>
+                                    <TableCell >
+                                        {
+                                            row.status == true ? <Button variant="contained" color="primary"
+                                                onClick={() => {
+                                                    setOpenSchedule(true)
+                                                    setSechduleEditData(row)
+                                                }}
 
-                                    >
-                                        Edit
-                                    </Button>
+                                            >
+                                                Edit
+                                            </Button> : ''
+                                        }
                                         <Button variant="outlined" color="danger"
                                             onClick={() => {
                                                 setSechduleEditData(row)
@@ -126,6 +135,7 @@ function Schedules() {
                                         </Button></TableCell>
                                 </TableRow>
                             ))}
+
                         </TableBody>
                     </Table>
                 </TableContainer>

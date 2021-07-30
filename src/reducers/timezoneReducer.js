@@ -1,7 +1,7 @@
-import { updateTimezone } from "../utils";
+import { getTimezone, updateTimezone } from "../utils";
 
 const initialState = {
-    timezone: ''
+    timezone: getTimezone() ? getTimezone() : ''
 
 }
 
@@ -12,12 +12,15 @@ export const timezoneReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case 'timezone': {
+
             updateTimezone(action.payload);
             return {
                 ...state,
                 timezone: action.payload
             }
+
         }
+        default: return state
     }
 
 }
